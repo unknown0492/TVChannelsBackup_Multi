@@ -31,7 +31,7 @@ public class MainActivity2 extends AppCompatActivity {
     String uploadedFileName = "";
     RootTools rt;
     ProgressDialog p;
-    Button backup, zip, restore, upload, exit;
+    Button backup, zip, upload, exit;
     TextView last_backup;
     EditText et_command, et_ip;
     Context context = this;
@@ -124,7 +124,6 @@ public class MainActivity2 extends AppCompatActivity {
         rt = new RootTools();
         backup  = (Button) findViewById(R.id.backup_button);
         zip     = (Button) findViewById(R.id.zip_button);
-        restore = (Button) findViewById(R.id.restore_button);
         upload  = (Button) findViewById(R.id.upload_button);
         exit    = (Button) findViewById(R.id.exit_button);
         last_backup  = (TextView) findViewById(R.id.last_backup);
@@ -136,7 +135,6 @@ public class MainActivity2 extends AppCompatActivity {
         //Toast.makeText( MainActivity.this, Functions.BACKUP_DIR, Toast.LENGTH_LONG).show();
         if( !f.exists() ){
             disable( zip );
-            disable( restore );
             disable( upload );
         }
         else if( f.exists() ){
@@ -145,7 +143,6 @@ public class MainActivity2 extends AppCompatActivity {
         }
         File f1 = new File( Functions.BACKUP_ZIP_PATH );
         if( !f1.exists() ){
-            disable( restore );
             disable( upload );
         }
     }
@@ -194,7 +191,7 @@ public class MainActivity2 extends AppCompatActivity {
                 if( (result != null) && (!result.equals("")) ){
                     Toast.makeText(context, "Backup has been successfully uploaded", Toast.LENGTH_LONG).show();
                     // enable( restore );
-                    restore.setEnabled( true );
+                    //restore.setEnabled( true );
                 }
                 else{
                     Toast.makeText(context, "Invalid Server IP address or you are probably not connected to the Network", Toast.LENGTH_LONG).show();
@@ -254,7 +251,7 @@ public class MainActivity2 extends AppCompatActivity {
                     if( !f.exists() || !f.isDirectory() ){
                         Log.i(null, "Backup Not Done : "+f.getAbsolutePath());
                         Toast.makeText(context, "Backup Not Done", Toast.LENGTH_LONG).show();
-                        disable( restore );
+                        //disable( restore );
                         disable( zip );
                         disable( upload );
                     }
@@ -292,7 +289,7 @@ public class MainActivity2 extends AppCompatActivity {
             protected Object doInBackground(Object... params) {
                 try {
                     Compress.zipFolder( Functions.BACKUP_DIR, Functions.BACKUP_ZIP_PATH );
-                    enable( restore );
+                    //enable( restore );
                     enable( upload );
                 } catch (Exception e) {
                     e.printStackTrace();
